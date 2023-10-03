@@ -184,4 +184,4 @@ async def send_log(_, message: Message) -> None:
     if os.path.exists("debug.log"):
         await message.reply_document("debug.log")
     else:
-        await message.reply_text("Dosya bulunamadı\nFile not found."
+        await message.reply_text("Dosya bulunamadı\nFile not found.")
