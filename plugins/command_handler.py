@@ -141,7 +141,7 @@ async def help_handler(_, message: Message) -> None:
             "** A. How to use the bot to render a website?\n\n"
             "Answer:** Just send the link to the website you want to create, "
             "select the desired setting and click on `Start`.\n\n"
-            "** B. How does this bot work?**\n\n
+            "** B. How does this bot work?**\n\n"
             "**Answer**: This bot uses a real browser under the hood to create websites.\n\n"
             "**C. How to report a bug or request a new feature?\n\n"
             "**Answer**: For feature requests or error reports"
@@ -160,9 +160,9 @@ async def help_handler(_, message: Message) -> None:
         text=
             "__Sıkça Sorulan Sorular__:\n\n"
             "** A. Bir web sitesinin çıktısı için bot nasıl kullanılır?\n\n"
-            "**Cevap**:Oluşturmak istediğiniz web sitesinin bağlantısını göndermeniz yeterli, "
+            "**Cevap**:Oluşturmak istediğiniz web sitesinin bağlantısını göndermeniz yeterli,"
             "istediğiniz ayarı seçin ve `Başlat'a'` tıklayın.\n\n"
-            "** B. Bu bot nasıl çalışır**?\n\n
+            "** B. Bu bot nasıl çalışır**?\n\n"
             "**Cevap**:Bu bot, web sitelerini oluşturmak için kaputun altında gerçek bir tarayıcı kullanır.\n\n"
             "** C. Bir hata nasıl bildirilir veya yeni bir özellik nasıl istenir?**\n\n"
             "**Cevap**: Özellik istekleri veya hata raporları için"
