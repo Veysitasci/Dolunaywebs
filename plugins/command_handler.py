@@ -15,7 +15,7 @@ from webshotbot import WebshotBot
     filters.regex(pattern="http[s]*://.+") & filters.private & ~filters.create(lambda _, __, m: bool(m.edit_date))
 )
 async def checker(client: WebshotBot, message: Message):
-    msg = await message.reply_text("working", True)
+    msg = await message.reply_text("Çalışıyor\Working", True)
     markup = []
     _settings = client.get_settings_cache(message.chat.id)
     if _settings is None:
@@ -84,7 +84,8 @@ async def checker(client: WebshotBot, message: Message):
 @WebshotBot.on_message(filters.command(["start"]))
 async def start(_, message: Message) -> None:
     await message.reply_text(
-        f"<b>Hi {message.from_user.first_name} 👋\n"
+        f"<b> {message.from_user.first_name} 👋\n"
+        "Belirli bir bağlantının web sitesini PDF veya PNG/JPEG'ye dönüştürebilirim."
         "I can render website of a given link to either PDF or PNG/JPEG</b>",
         quote=True,
         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("❓ About", callback_data="about_cb")]]),
@@ -99,20 +100,11 @@ async def feedback(_, message: Message) -> None:
             [
                 [
                     InlineKeyboardButton(
-                        "👨🏻‍🦯 Source",
-                        url="https://github.com/alenpaul2001/Web-Screenshot-Bot",
-                    ),
-                    InlineKeyboardButton(
-                        "❓ Bug Report",
-                        url="https://github.com/alenpaul2001/Web-Screenshot-Bot/issues",
+                        "❓ Hata Raporlama / Bug Report",
+                        url="https://t.me/DolunayDestekBot",
                     ),
                 ],
-                [
-                    InlineKeyboardButton(
-                        "🌃 Profile Icon Credit",
-                        url="https://www.goodfon.com/wallpaper/art-vector-background-illustration-minimalism-angga-tanta-12.html",
-                    )
-                ],
+                
             ]
         ),
     )
@@ -122,22 +114,64 @@ async def feedback(_, message: Message) -> None:
 async def help_handler(_, message: Message) -> None:
     if Config.SUPPORT_GROUP_LINK is not None:
         await message.reply_text(
-            "__Frequently Asked Questions__** : -\n\n"
-            "A. How to use the bot to render a website?\n\n"
-            "Ans:** Send the link of the website you want to render, "
-            "choose the desired setting, and click `start render`.\n\n"
-            "**B. How does this bot work?\n\n Ans:** This bot uses"
-            " an actual browser under the hood to render websites.\n\n"
+        text="Nasıl kullanılır?\How is it used?",
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        "Türkçe",
+                        callback_data="",
+                    ),
+                    InlineKeyboardButton(
+                        "English",
+                        callback_data="",
+                    ),
+                ],
+                
+            ]
+        ),
+    )
+        
+@WebshotBot.on_message(filters.command(["support_en", ]) & filters.private)
+async def help_handler(_, message: Message) -> None:
+    if Config.SUPPORT_GROUP_LINK is not None:
+        await message.reply_text(
+        text=
+            "__Frequently Asked Questions__:\n\n"
+            "** A. How to use the bot to render a website?\n\n"
+            "Answer:** Just send the link to the website you want to create, "
+            "select the desired setting and click on `Start`.\n\n"
+            "** B. How does this bot work?**\n\n
+            "**Answer**: This bot uses a real browser under the hood to create websites.\n\n"
             "**C. How to report a bug or request a new feature?\n\n"
-            "Ans:** For feature requests or bug reports, you can open an "
-            "[issue](https://github.com/alenpaul2001/Web-Screenshot-Bot) in Github"
-            " or send the inquiry message in the support group mentioned below.",
+            "**Answer**: For feature requests or error reports"
+            "launch the [Dolunay Raport](https://t.me/DolunayDestekBot) bot and follow the steps or contact [Nihilanth](https://t.me/nihilanth0) privately",
             reply_markup=InlineKeyboardMarkup(
                 [[InlineKeyboardButton(text="Support group", url=Config.SUPPORT_GROUP_LINK)]]
             ),
             disable_web_page_preview=True,
         )
+        
 
+@WebshotBot.on_message(filters.command(["support_tr", ]) & filters.private)
+async def help_handler(_, message: Message) -> None:
+    if Config.SUPPORT_GROUP_LINK is not None:
+        await message.reply_text(
+        text=
+            "__Sıkça Sorulan Sorular__:\n\n"
+            "** A. Bir web sitesinin çıktısı için bot nasıl kullanılır?\n\n"
+            "**Cevap**:Oluşturmak istediğiniz web sitesinin bağlantısını göndermeniz yeterli, "
+            "istediğiniz ayarı seçin ve `Başlat'a'` tıklayın.\n\n"
+            "** B. Bu bot nasıl çalışır**?\n\n
+            "**Cevap**:Bu bot, web sitelerini oluşturmak için kaputun altında gerçek bir tarayıcı kullanır.\n\n"
+            "** C. Bir hata nasıl bildirilir veya yeni bir özellik nasıl istenir?**\n\n"
+            "**Cevap**: Özellik istekleri veya hata raporları için"
+            "[Dolunay Raporlama](https://t.me/DolunayDestekBot) botunu başlatıp adımları izleyin veya [Nihilanth](https://t.me/nihilanth0)'a özelden ulaşın",
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton(text="Support group", url=Config.SUPPORT_GROUP_LINK)]]
+            ),
+            disable_web_page_preview=True,
+        )
 
 @WebshotBot.on_message(filters.command(["debug", "log"]) & filters.private)
 async def send_log(_, message: Message) -> None:
@@ -150,4 +184,4 @@ async def send_log(_, message: Message) -> None:
     if os.path.exists("debug.log"):
         await message.reply_document("debug.log")
     else:
-        await message.reply_text("file not found")
+        await message.reply_text("Dosya bulunamadı\nFile not found."
