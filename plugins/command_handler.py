@@ -15,7 +15,7 @@ from webshotbot import WebshotBot
     filters.regex(pattern="http[s]*://.+") & filters.private & ~filters.create(lambda _, __, m: bool(m.edit_date))
 )
 async def checker(client: WebshotBot, message: Message):
-    msg = await message.reply_text("Çalışıyor\Working", True)
+    msg = await message.reply_text("Çalışıyor\nWorking", True)
     markup = []
     _settings = client.get_settings_cache(message.chat.id)
     if _settings is None:
@@ -53,7 +53,7 @@ async def checker(client: WebshotBot, message: Message):
     if _split or  _resolution != "Letter":
         markup.extend(
             [
-                [InlineKeyboardButton(text="hide additional options ˄", callback_data="options")],
+                [InlineKeyboardButton(text="Ek ayarları kapat/ Hide additional options ˄", callback_data="options")],
                 [
                     InlineKeyboardButton(text=f"resolution | {_resolution}", callback_data="res"),
                 ],
@@ -68,7 +68,7 @@ async def checker(client: WebshotBot, message: Message):
             ]
         )
     else:
-        markup.append([InlineKeyboardButton(text="show additional options ˅", callback_data="options")])
+        markup.append([InlineKeyboardButton(text="Ek ayarları göster / Show additional options ˅", callback_data="options")])
     markup.extend(
         [
             [InlineKeyboardButton(text="▫️ start render ▫️", callback_data="render")],
@@ -84,11 +84,19 @@ async def checker(client: WebshotBot, message: Message):
 @WebshotBot.on_message(filters.command(["start"]))
 async def start(_, message: Message) -> None:
     await message.reply_text(
-        f"<b> {message.from_user.first_name} 👋\n"
+        f"<b> {message.from_user.first_name} 👋\n\n"
         "Belirli bir bağlantının web sitesini PDF veya PNG/JPEG'ye dönüştürebilirim."
         "I can render website of a given link to either PDF or PNG/JPEG</b>",
         quote=True,
-        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("❓ About", callback_data="about_cb")]]),
+        reply_markup=InlineKeyboardMarkup
+        (
+        [
+        [
+        InlineKeyboardButton("❓ About", callback_data="about_cb"),
+        InlineKeyboardButton("❓ Hakkımda", callback_data="support_cb"),
+        ],
+        ]
+        ),
     )
 
 
