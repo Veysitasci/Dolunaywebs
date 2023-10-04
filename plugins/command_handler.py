@@ -92,24 +92,42 @@ async def start(_, message: Message) -> None:
         (
         [
         [
-        InlineKeyboardButton("❓ About", callback_data="about_cb"),
-        InlineKeyboardButton("❓ Hakkımda", callback_data="support_cb"),
+        InlineKeyboardButton("❓ Hakkımda / About", callback_data="about_cb"),
+        ],
+         [
+        InlineKeyboardButton("Destek / Support", url="https://t.me/dolunaydestek"),
         ],
         ]
         ),
     )
 
 
-@WebshotBot.on_message(filters.command(["about", "feedback"]))
+@WebshotBot.on_message(filters.command(["about", "yardim"]))
 async def feedback(_, message: Message) -> None:
     await message.reply_text(
-        text="This project is open ❤️ source",
+        text="**Sıkça sorulan sorular için lütfen aşağıdaki dillerden birini seçin:**\n**For frequently asked questions, please select one of the following languages:**",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
+                        "Türkçe",
+                        callback_data="supporttr",
+                    ),
+                    InlineKeyboardButton(
+                        "English",
+                        callback_data="supporten",
+                    ),
+                ],
+                [
+                    InlineKeyboardButton(
                         "❓ Hata Raporlama / Bug Report",
                         url="https://t.me/DolunayDestekBot",
+                    ),
+                ],
+                [
+                    InlineKeyboardButton(
+                        "Geri / Back",
+                        callback_data="back_to_menu",
                     ),
                 ],
                 
@@ -117,9 +135,30 @@ async def feedback(_, message: Message) -> None:
         ),
     )
 
-
-@WebshotBot.on_message(filters.command(["support", "feedback", "help"]) & filters.private)
-async def help_handler(_, message: Message) -> None:
+@WebshotBot.on_message(filters.command(["hznsznjznsnnx"]))
+async def back_to_menu(_, message: Message) -> None:
+    if Config.SUPPORT_GROUP_LINK is not None:
+        await delete.message
+        await message.reply_text(
+        f"<b> {message.from_user.first_name} 👋\n\n"
+        "Belirli bir bağlantının web sitesini PDF veya PNG/JPEG'ye dönüştürebilirim."
+        "I can render website of a given link to either PDF or PNG/JPEG</b>",
+        quote=True,
+        reply_markup=InlineKeyboardMarkup
+        (
+        [
+        [
+        InlineKeyboardButton("❓ Hakkımda / About", callback_data="about_cb"),
+        ],
+         [
+        InlineKeyboardButton("Destek / Support", url="https://t.me/dolunaydestek"),
+        ],
+        ]
+        ),
+    )
+ 
+@WebshotBot.on_message(filters.command(["support"]))
+async def support(_, message: Message) -> None:
     if Config.SUPPORT_GROUP_LINK is not None:
         await message.reply_text(
         text="Nasıl kullanılır?\How is it used?",
@@ -128,20 +167,53 @@ async def help_handler(_, message: Message) -> None:
                 [
                     InlineKeyboardButton(
                         "Türkçe",
-                        callback_data="",
+                        callback_data="supporttr",
                     ),
                     InlineKeyboardButton(
                         "English",
-                        callback_data="",
+                        callback_data="supporten",
                     ),
                 ],
-                
+                [
+                    InlineKeyboardButton(
+                        "Geri / Back",
+                        callback_data="back_to_menu",
+                    ),
+                ],                
             ]
         ),
     )
+    
+    
+@WebshotBot.on_message(filters.command(["djdjxsjjdjjxjxk"]))
+async def back_to_about(_, message: Message) -> None:
+    if Config.SUPPORT_GROUP_LINK is not None:
+        await message.reply_text(
+        text="Nasıl kullanılır?\How is it used?",
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        "Türkçe",
+                        callback_data="supporttr",
+                    ),
+                    InlineKeyboardButton(
+                        "English",
+                        callback_data="supporten",
+                    ),
+                ],
+                [
+                    InlineKeyboardButton(
+                        "Geri / Back",
+                        callback_data="back_to_menu",
+                    ),
+                ],                
+            ]
+        ),
+    )    
         
-@WebshotBot.on_message(filters.command(["support_en", ]) & filters.private)
-async def help_handler(_, message: Message) -> None:
+@WebshotBot.on_message(filters.command(["supporten", ]) & filters.private)
+async def supporten(_, message: Message) -> None:
     if Config.SUPPORT_GROUP_LINK is not None:
         await message.reply_text(
         text=
@@ -155,14 +227,24 @@ async def help_handler(_, message: Message) -> None:
             "**Answer**: For feature requests or error reports"
             "launch the [Dolunay Raport](https://t.me/DolunayDestekBot) bot and follow the steps or contact [Nihilanth](https://t.me/nihilanth0) privately",
             reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="Support group", url=Config.SUPPORT_GROUP_LINK)]]
+                [
+                [
+                InlineKeyboardButton(text="Support group", url=Config.SUPPORT_GROUP_LINK),                
+                ],
+                [
+                    InlineKeyboardButton(
+                        "Geri / Back",
+                        callback_data="back_to_about",
+                    ),
+                ],               
+                ]                
             ),
             disable_web_page_preview=True,
         )
         
 
-@WebshotBot.on_message(filters.command(["support_tr", ]) & filters.private)
-async def help_handler(_, message: Message) -> None:
+@WebshotBot.on_message(filters.command(["supporttr", ]) & filters.private)
+async def supporttr(_, message: Message) -> None:
     if Config.SUPPORT_GROUP_LINK is not None:
         await message.reply_text(
         text=
@@ -176,7 +258,17 @@ async def help_handler(_, message: Message) -> None:
             "**Cevap**: Özellik istekleri veya hata raporları için"
             "[Dolunay Raporlama](https://t.me/DolunayDestekBot) botunu başlatıp adımları izleyin veya [Nihilanth](https://t.me/nihilanth0)'a özelden ulaşın",
             reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="Support group", url=Config.SUPPORT_GROUP_LINK)]]
+                [
+                [
+                InlineKeyboardButton(text="Support group", url=Config.SUPPORT_GROUP_LINK),                
+                ],
+                [
+                    InlineKeyboardButton(
+                        "Geri / Back",
+                        callback_data="back_to_about",
+                    ),
+                ],               
+                ]                
             ),
             disable_web_page_preview=True,
         )
